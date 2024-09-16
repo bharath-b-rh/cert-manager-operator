@@ -1,4 +1,4 @@
-FROM docker.io/golang:1.22 AS builder
+FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.22.5-202407301806.g4c8b32d.el9 AS builder
 WORKDIR /go/src/github.com/openshift/cert-manager-operator
 COPY . .
 RUN make build --warn-undefined-variables
