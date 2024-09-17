@@ -1,4 +1,4 @@
-FROM registry.ci.openshift.org/openshift/release:rhel-9-release-golang-1.22-openshift-4.18 AS builder
+FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_golang_1.22 AS builder
 WORKDIR /go/src/github.com/openshift/cert-manager-operator
 COPY . .
 RUN make build --warn-undefined-variables
