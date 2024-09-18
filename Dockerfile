@@ -3,7 +3,6 @@ WORKDIR /go/src/github.com/openshift/cert-manager-operator
 COPY . .
 RUN make build --warn-undefined-variables
 
-
 FROM registry.redhat.io/rhel9-2-els/rhel:9.2-1327.1725390050
 COPY --from=builder /go/src/github.com/openshift/cert-manager-operator/cert-manager-operator /usr/bin/
 USER 65534:65534
