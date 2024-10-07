@@ -10,8 +10,7 @@ metadata:
     pipelinesascode.tekton.dev/max-keep-runs: "3"
    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "konflux-test" &&
       (".tekton/cert-manager-operator-bundle-bhb-push.yaml".pathChanged() ||
-      "bundle.Dockerfile.konflux".pathChanged() ||
-      "bundle".pathChanged())
+      "bundle.Dockerfile.konflux".pathChanged() || "bundle".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: cert-manager-operator-1-15
