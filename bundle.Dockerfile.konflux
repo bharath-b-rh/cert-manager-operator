@@ -1,0 +1,42 @@
+FROM scratch
+
+ARG RELEASE_VERSION
+ARG COMMIT_SHA
+ARG SOURCE_URL
+ARG SOURCE_DIR="/go/src/github.com/openshift/jetstack-cert-manager"
+
+# Core bundle labels.
+LABEL com.redhat.component="cert-manager-operator-bundle-container" \
+      name="cert-manager/cert-manager-operator-bundle" \
+      version="v${RELEASE_VERSION}" \
+      summary="Cert Manager support for OpenShift" \
+      maintainer="Red Hat, Inc." \
+      description="Cert Manager support for OpenShift" \
+      com.redhat.delivery.operator.bundle=true \
+      com.redhat.openshift.versions="v4.14-v4.18" \
+      io.openshift.expose-services="" \
+      io.openshift.build.commit.id="${COMMIT_SHA}" \
+      io.openshift.build.source-location="${SOURCE_URL}" \
+      io.openshift.build.commit.url="${SOURCE_URL}/commit/${COMMIT_SHA}" \
+      io.openshift.maintainer.product="OpenShift Container Platform" \
+      io.openshift.tags="openshift,cert,cert-manager,cert-manager-operator,tls" \
+      io.k8s.display-name="openshift-cert-manager-operator-bundle" \
+      io.k8s.description="cert-manager-operator-bundle-container" \
+      operators.operatorframework.io.bundle.mediatype.v1="registry+v1" \
+      operators.operatorframework.io.bundle.manifests.v1=manifests/ \
+      operators.operatorframework.io.bundle.metadata.v1=metadata/ \
+      operators.operatorframework.io.bundle.package.v1="openshift-cert-manager-operator" \
+      operators.operatorframework.io.bundle.channel.default.v1="stable-v1" \
+      operators.operatorframework.io.bundle.channels.v1="stable-v1,stable-v1.15" \
+      operators.operatorframework.io.metrics.builder="operator-sdk-v1.25.1" \
+      operators.operatorframework.io.metrics.mediatype.v1="metrics+v1" \
+      operators.operatorframework.io.metrics.project_layout="go.kubebuilder.io/v3"
+
+# Labels for testing.
+LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
+LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
+
+# Copy files to locations specified by labels.
+COPY bundle/manifests /manifests/
+COPY bundle/metadata /metadata/
+COPY bundle/tests/scorecard /tests/scorecard/
