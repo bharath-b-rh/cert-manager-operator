@@ -210,7 +210,7 @@ metadata:
     capabilities: Seamless Upgrades
     categories: Security
     console.openshift.io/disable-operand-delete: "true"
-    containerImage: openshift.io/cert-manager-operator:latest
+    containerImage: registry.redhat.io/cert-manager/cert-manager-operator-rhel9:v1.15.0
     createdAt: 2023-03-03T00:00:00
     features.operators.openshift.io/disconnected: "false"
     features.operators.openshift.io/fips-compliant: "true"
@@ -219,6 +219,9 @@ metadata:
     features.operators.openshift.io/token-auth-aws: "true"
     features.operators.openshift.io/token-auth-azure: "true"
     features.operators.openshift.io/token-auth-gcp: "true"
+    features.operators.openshift.io/cnf: "false"
+    features.operators.openshift.io/cni: "false"
+    features.operators.openshift.io/csi: "false"
     olm.skipRange: '>=1.14.0 <1.15.0'
     operator.openshift.io/uninstall-message: The cert-manager Operator for Red Hat
       OpenShift will be removed from cert-manager-operator namespace. If your Operator
@@ -616,7 +619,7 @@ spec:
                 - --upstream=http://127.0.0.1:8080/
                 - --logtostderr=true
                 - --v=0
-                image: gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
+                image: registry.redhat.io/openshift4/ose-kube-rbac-proxy-rhel9:v4.17.0
                 name: kube-rbac-proxy
                 ports:
                 - containerPort: 9443
@@ -657,22 +660,22 @@ spec:
                 - name: OPERATOR_NAME
                   value: cert-manager-operator
                 - name: RELATED_IMAGE_CERT_MANAGER_WEBHOOK
-                  value: quay.io/jetstack/cert-manager-webhook:v1.15.2
+                  value: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9:1.15.0
                 - name: RELATED_IMAGE_CERT_MANAGER_CA_INJECTOR
-                  value: quay.io/jetstack/cert-manager-cainjector:v1.15.2
+                  value: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9:1.15.0
                 - name: RELATED_IMAGE_CERT_MANAGER_CONTROLLER
-                  value: quay.io/jetstack/cert-manager-controller:v1.15.2
+                  value: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9:1.15.0
                 - name: RELATED_IMAGE_CERT_MANAGER_ACMESOLVER
-                  value: quay.io/jetstack/cert-manager-acmesolver:v1.15.2
+                  value: registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9:1.15.0
                 - name: OPERAND_IMAGE_VERSION
-                  value: 1.15.2
+                  value: 1.15.0
                 - name: OPERATOR_IMAGE_VERSION
                   value: 1.15.0
                 - name: OPERATOR_LOG_LEVEL
                   value: "2"
                 - name: TRUSTED_CA_CONFIGMAP_NAME
                 - name: CLOUD_CREDENTIALS_SECRET_NAME
-                image: openshift.io/cert-manager-operator:latest
+                image: registry.redhat.io/cert-manager/cert-manager-operator-rhel9:v1.15.0
                 imagePullPolicy: IfNotPresent
                 name: cert-manager-operator
                 resources:
@@ -756,13 +759,13 @@ spec:
   provider:
     name: Red Hat
   relatedImages:
-  - image: quay.io/jetstack/cert-manager-webhook:v1.15.2
+  - image: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9:1.15.0
     name: cert-manager-webhook
-  - image: quay.io/jetstack/cert-manager-cainjector:v1.15.2
+  - image: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9:1.15.0
     name: cert-manager-ca-injector
-  - image: quay.io/jetstack/cert-manager-controller:v1.15.2
+  - image: registry.redhat.io/cert-manager/jetstack-cert-manager-rhel9:1.15.0
     name: cert-manager-controller
-  - image: quay.io/jetstack/cert-manager-acmesolver:v1.15.2
+  - image: registry.redhat.io/cert-manager/jetstack-cert-manager-acmesolver-rhel9:1.15.0
     name: cert-manager-acmesolver
   replaces: cert-manager-operator.v1.14.0
   version: 1.15.0
