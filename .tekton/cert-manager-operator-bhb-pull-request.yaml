@@ -12,7 +12,7 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "konflux-test" &&
       (".tekton/cert-manager-operator-bhb-pull-request.yaml".pathChanged() ||
       ".tekton/cert-manager-operator-bhb-push.yaml".pathChanged() || "Dockerfile.konflux".pathChanged() ||
-      "api".pathChanged() || "bindata".pathChanged() || "pkg"..pathChanged() || "vendor".pathChanged())
+      "api/\*".pathChanged() || "bindata/\*".pathChanged() || "pkg/\*".pathChanged() || "vendor/\*".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: cert-manager-operator-1-15
